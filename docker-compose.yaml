@@ -19,8 +19,11 @@ services:
     image: phpmyadmin:5.1.1-apache
     ports: 
       - 8080:80
+    volumes:
+      - ./mysql_config.php:/etc/phpmyadmin/config.user.inc.php
     environment:
       - PMA_ARBITRARY=1
+      - PMA_HOST=web-database
     networks:
       - framework_web_network
 
@@ -29,11 +32,15 @@ services:
     image: php:8.0-apache
     volumes:
       - ./code:/var/www/html/
+      - ./php.ini:/usr/local/etc/php/php.ini
+      - ./virtual_host.conf:/etc/apache2/sites-available/000-default.conf
     ports:
       - 8000:80
+    env_file:
+      - ./code/.env
     networks:
       - framework_web_network
 
 networks:
   framework_web_network:
-    driver: framework_web_driver
+    driver: bridge
