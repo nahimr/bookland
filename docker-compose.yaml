@@ -1,0 +1,39 @@
+version: "3.8"
+
+services:
+  database:
+    container_name: web-database
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: free_me_babe_after_malloc
+      MYSQL_DATABASE: web
+      MYSQL_USER: web
+      MYSQL_PASSWORD: free_me_babe_after_malloc
+    ports:
+      - 3306:3306
+    networks:
+      - framework_web_network
+
+  phpmyadmin:
+    container_name: web-phpmyadmin
+    image: phpmyadmin:5.1.1-apache
+    ports: 
+      - 8080:80
+    environment:
+      - PMA_ARBITRARY=1
+    networks:
+      - framework_web_network
+
+  php:
+    container_name: web-php_apache
+    image: php:8.0-apache
+    volumes:
+      - ./code:/var/www/html/
+    ports:
+      - 8000:80
+    networks:
+      - framework_web_network
+
+networks:
+  framework_web_network:
+    driver: framework_web_driver
