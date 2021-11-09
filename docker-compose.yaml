@@ -18,9 +18,9 @@ services:
     container_name: web-phpmyadmin
     image: phpmyadmin:5.1.1-apache
     ports: 
-      - 8080:80
+      - 8081:80
     volumes:
-      - ./mysql_config.php:/etc/phpmyadmin/config.user.inc.php
+      - ./docker/phpmyadmin/mysql_config.php:/etc/phpmyadmin/config.user.inc.php
     environment:
       - PMA_ARBITRARY=1
       - PMA_HOST=web-database
@@ -29,13 +29,13 @@ services:
 
   php:
     container_name: web-php_apache
-    image: php:8.0-apache
+    build: ./docker/php/
     volumes:
       - ./code:/var/www/html/
-      - ./php.ini:/usr/local/etc/php/php.ini
-      - ./virtual_host.conf:/etc/apache2/sites-available/000-default.conf
+      - ./docker/php/php.ini:/usr/local/etc/php/php.ini
+      - ./docker/php/virtual_host.conf:/etc/apache2/sites-available/000-default.conf
     ports:
-      - 8000:80
+      - 8080:80
     env_file:
       - ./code/.env
     networks:

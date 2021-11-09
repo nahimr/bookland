@@ -11,8 +11,6 @@
         "symfony/framework-bundle": "4.4.*",
         "symfony/yaml": "4.4.*"
     },
-    "require-dev": {
-    },
     "config": {
         "preferred-install": {
             "*": "dist"
