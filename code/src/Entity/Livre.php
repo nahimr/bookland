@@ -21,6 +21,11 @@ class Livre
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Isbn(
+     *      type = "isbn13",
+     *      message = "Cette valeur n'est pas correcte"
+     * )
+     * @Assert\Regex("^(978|979)")
      */
     private $isbn;
 
