@@ -47,7 +47,12 @@ class AuteurFixtures extends Fixture
                 "dateNaissance" => date_create("07/03/1970"),
                 "nationalite" => "France"
             ],
-
+            [
+                "nom" => "Jean Dupont",
+                "sexe" => "M",
+                "dateNaissance" => date_create("07/03/1970"),
+                "nationalite" => "France"
+            ],
         ];
 
         foreach ($data as $auteur)
