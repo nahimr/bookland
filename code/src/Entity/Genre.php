@@ -22,6 +22,12 @@ class Genre
      */
     private $nom;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Livre::class, inversedBy="genres")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $livre;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -35,6 +41,18 @@ class Genre
     public function setNom(string $nom): self
     {
         $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function getLivre(): ?Livre
+    {
+        return $this->livre;
+    }
+
+    public function setLivre(?Livre $livre): self
+    {
+        $this->livre = $livre;
 
         return $this;
     }
