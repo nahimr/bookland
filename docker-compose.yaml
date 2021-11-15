@@ -10,7 +10,7 @@ services:
       MYSQL_USER: web
       MYSQL_PASSWORD: free_me_babe_after_malloc
     ports:
-      - 3306:3306
+      - "3306:3306"
     networks:
       - framework_web_network
 
@@ -18,7 +18,7 @@ services:
     container_name: web-phpmyadmin
     image: phpmyadmin:5.1.1-apache
     ports: 
-      - 8081:80
+      - "8081:80"
     volumes:
       - ./docker/phpmyadmin/mysql_config.php:/etc/phpmyadmin/config.user.inc.php
     environment:
@@ -32,14 +32,20 @@ services:
     build: ./docker/php/
     volumes:
       - ./code:/var/www/html/
+      - vendor:/var/www/vendor
+      - var:/var/www/var
       - ./docker/php/php.ini:/usr/local/etc/php/php.ini
       - ./docker/php/virtual_host.conf:/etc/apache2/sites-available/000-default.conf
     ports:
-      - 8080:80
+      - "8080:80"
     env_file:
       - ./code/.env
     networks:
       - framework_web_network
+
+volumes:
+  vendor:
+  var:
 
 networks:
   framework_web_network:
