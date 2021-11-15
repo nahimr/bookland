@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Repository\LivreRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\Isbn;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -21,11 +23,7 @@ class Livre
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Isbn(
-     *      type = "isbn13",
-     *      message = "Cette valeur n'est pas correcte"
-     * )
-     * @Assert\Regex("^(978|979)")
+     *
      */
     private $isbn;
 
@@ -186,4 +184,22 @@ class Livre
 
         return $this;
     }
+
+    /**
+     * @param ArrayCollection $auteurs
+     */
+    public function setAuteurs(ArrayCollection $auteurs): void
+    {
+        $this->auteurs = $auteurs;
+    }
+
+    /**
+     * @param ArrayCollection $genres
+     */
+    public function setGenres(ArrayCollection $genres): void
+    {
+        $this->genres = $genres;
+    }
+
+
 }
