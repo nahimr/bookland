@@ -24,7 +24,7 @@ class Genre
 
     /**
      * @ORM\ManyToOne(targetEntity=Livre::class, inversedBy="genres")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $livre;
 
