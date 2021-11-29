@@ -75,6 +75,15 @@ class LivreFixtures extends Fixture
                 "genres" => ["Philosophie"],
                 "auteurs" => ["Nancy Grave", "Francis Gabrelot"]
             ],
+            [
+                "nom" => "Roblox",
+                "isbn" => "978-0-141-18787-0",
+                "nbPages" => 10,
+                "date" => date_create("11/10/2004"),
+                "note" => 2,
+                "genres" => [],
+                "auteurs" => ["Francis Gabrelot"]
+            ],
         ];
 
         foreach ($data as $livre)
