@@ -1,3 +1,7 @@
 body {
     background-color: white;
 }
+
+main {
+    margin: 32px;
+}
