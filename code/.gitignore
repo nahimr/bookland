@@ -167,3 +167,10 @@ modules.xml
 !var/sessions/.gitkeep
 
 # End of https://www.toptal.com/developers/gitignore/api/composer,phpstorm+all,symfony
+
+###> symfony/webpack-encore-bundle ###
+/node_modules/
+/public/build/
+npm-debug.log
+yarn-error.log
+###< symfony/webpack-encore-bundle ###
