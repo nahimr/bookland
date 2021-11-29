@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\GenreRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -23,10 +25,14 @@ class Genre
     private $nom;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Livre::class, inversedBy="genres")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\ManyToMany(targetEntity=Livre::class, mappedBy="genres")
      */
-    private $livre;
+    private $livres;
+
+    public function __construct()
+    {
+        $this->livres = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -45,14 +51,29 @@ class Genre
         return $this;
     }
 
-    public function getLivre(): ?Livre
+    /**
+     * @return Collection|Livre[]
+     */
+    public function getLivres(): Collection
     {
-        return $this->livre;
+        return $this->livres;
     }
 
-    public function setLivre(?Livre $livre): self
+    public function addLivre(Livre $livre): self
     {
-        $this->livre = $livre;
+        if (!$this->livres->contains($livre)) {
+            $this->livres[] = $livre;
+            $livre->addGenre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLivre(Livre $livre): self
+    {
+        if ($this->livres->removeElement($livre)) {
+            $livre->removeGenre($this);
+        }
 
         return $this;
     }

@@ -23,23 +23,11 @@ class AuteurFixtures extends Fixture
                 "dateNaissance" => date_create("11/23/1943"),
                 "nationalite" => "Allemagne"
             ],
-           [
-               "nom" => "Ayn Rand",
-               "sexe" => "F",
-               "dateNaissance" => date_create("06/21/1950"),
-               "nationalite" => "Russie"
-            ],
             [
                 "nom" => "Duschmol",
                 "sexe" => "M",
                 "dateNaissance" => date_create("12/23/2001"),
                 "nationalite" => "Groland"
-            ],
-            [
-                "nom" => "Nancy Grave",
-                "sexe" => "F",
-                "dateNaissance" => date_create("10/24/1952"),
-                "nationalite" => "USA"
             ],
             [
                 "nom" => "James Enckling",
@@ -53,6 +41,24 @@ class AuteurFixtures extends Fixture
                 "dateNaissance" => date_create("07/03/1970"),
                 "nationalite" => "France"
             ],
+            [
+                "nom" => "Francis Gabrelot",
+                "sexe" => "M",
+                "dateNaissance" => date_create("01/29/1967"),
+                "nationalite" => "France"
+            ],
+            [
+                "nom" => "Ayn Rand",
+                "sexe" => "F",
+                "dateNaissance" => date_create("06/21/1950"),
+                "nationalite" => "Russie"
+            ],
+            [
+                "nom" => "Nancy Grave",
+                "sexe" => "F",
+                "dateNaissance" => date_create("10/24/1952"),
+                "nationalite" => "USA"
+            ],
         ];
 
         foreach ($data as $auteur)
@@ -62,6 +68,7 @@ class AuteurFixtures extends Fixture
             $autObj->setSexe($auteur["sexe"]);
             $autObj->setDateDeNaissance($auteur["dateNaissance"]);
             $autObj->setNationalite($auteur["nationalite"]);
+            $this->addReference($auteur["nom"], $autObj);
             $manager->persist($autObj);
         }
 

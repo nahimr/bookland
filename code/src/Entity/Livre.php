@@ -48,12 +48,12 @@ class Livre
     private $note;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Auteur::class, mappedBy="livres")
+     * @ORM\ManyToMany(targetEntity=Auteur::class, mappedBy="livres", cascade={"persist"})
      */
     private $auteurs;
 
     /**
-     * @ORM\OneToMany(targetEntity=Genre::class, mappedBy="livre")
+     * @ORM\ManyToMany(targetEntity=Genre::class, inversedBy="livres")
      */
     private $genres;
 
@@ -156,36 +156,6 @@ class Livre
     }
 
     /**
-     * @return Collection|Genre[]
-     */
-    public function getGenres(): Collection
-    {
-        return $this->genres;
-    }
-
-    public function addGenre(Genre $genre): self
-    {
-        if (!$this->genres->contains($genre)) {
-            $this->genres[] = $genre;
-            $genre->setLivre($this);
-        }
-
-        return $this;
-    }
-
-    public function removeGenre(Genre $genre): self
-    {
-        if ($this->genres->removeElement($genre)) {
-            // set the owning side to null (unless already changed)
-            if ($genre->getLivre() === $this) {
-                $genre->setLivre(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * @param ArrayCollection $auteurs
      */
     public function setAuteurs(ArrayCollection $auteurs): void
@@ -199,6 +169,30 @@ class Livre
     public function setGenres(ArrayCollection $genres): void
     {
         $this->genres = $genres;
+    }
+
+    /**
+     * @return Collection|Genre[]
+     */
+    public function getGenres(): Collection
+    {
+        return $this->genres;
+    }
+
+    public function addGenre(Genre $genre): self
+    {
+        if (!$this->genres->contains($genre)) {
+            $this->genres[] = $genre;
+        }
+
+        return $this;
+    }
+
+    public function removeGenre(Genre $genre): self
+    {
+        $this->genres->removeElement($genre);
+
+        return $this;
     }
 
 
