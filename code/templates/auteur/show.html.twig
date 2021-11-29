@@ -12,7 +12,7 @@
                 <td>{{ auteur.id }}</td>
             </tr>
             <tr>
-                <th>Nom_prenom</th>
+                <th>Nom Prénom</th>
                 <td>{{ auteur.nomPrenom }}</td>
             </tr>
             <tr>
@@ -20,19 +20,19 @@
                 <td>{{ auteur.sexe }}</td>
             </tr>
             <tr>
-                <th>Date_de_naissance</th>
+                <th>Date de naissance</th>
                 <td>{{ auteur.dateDeNaissance ? auteur.dateDeNaissance|date('Y-m-d') : '' }}</td>
             </tr>
             <tr>
-                <th>Nationalite</th>
+                <th>Nationalité</th>
                 <td>{{ auteur.nationalite }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('auteur_index') }}">back to list</a>
+    <a class="btn btn-primary" href="{{ path('auteur_index') }}">Retour vers la liste</a>
 
-    <a href="{{ path('auteur_edit', {'id': auteur.id}) }}">edit</a>
+    <a class="btn btn-primary" href="{{ path('auteur_edit', {'id': auteur.id}) }}">Editer</a>
 
     {{ include('auteur/_delete_form.html.twig') }}
 {% endblock %}
