@@ -14,19 +14,6 @@ services:
     networks:
       - framework_web_network
 
-  phpmyadmin:
-    container_name: web-phpmyadmin
-    image: phpmyadmin:5.1.1-apache
-    ports: 
-      - "8081:80"
-    volumes:
-      - ./docker/phpmyadmin/mysql_config.php:/etc/phpmyadmin/config.user.inc.php
-    environment:
-      - PMA_ARBITRARY=1
-      - PMA_HOST=web-database
-    networks:
-      - framework_web_network
-
   php:
     container_name: web-php_apache
     build: ./docker/php/
@@ -40,6 +27,16 @@ services:
       - "8080:80"
     env_file:
       - ./code/.env
+    networks:
+      - framework_web_network
+
+  node:
+    container_name: web-node
+    build: ./docker/node
+    volumes:
+      - ./code:/app
+    ports:
+      - "8082:8082"
     networks:
       - framework_web_network
 
