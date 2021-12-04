@@ -28,6 +28,12 @@
                             <li class="nav-item">
                                 <a class="nav-link {% if app.request.attributes.get('_route') starts with 'genre' %}active{% endif %}" href="{{ path('genre_index') }}">Genres</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link {% if app.request.attributes.get('_route') starts with 'livre' %}active{% endif %}" href="{{ path('livre_index') }}">Livres</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {% if app.request.attributes.get('_route') starts with 'auteur' %}active{% endif %}" href="{{ path('auteur_index') }}">Auteurs</a>
+                            </li>
                         </ul>
                         <form class="d-flex">
                             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">

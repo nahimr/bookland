@@ -1,20 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Livre index{% endblock %}
+{% block title %}Livre{% endblock %}
 
 {% block body %}
-    <h1>Livre index</h1>
+    <h1>Livre Liste</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Isbn</th>
+                <th>ID</th>
+                <th>ISBN</th>
                 <th>Titre</th>
-                <th>Nbpages</th>
-                <th>Date_de_parution</th>
+                <th>Nombre de pages</th>
+                <th>Date de parution</th>
                 <th>Note</th>
-                <th>actions</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -27,17 +27,17 @@
                 <td>{{ livre.dateDeParution ? livre.dateDeParution|date('Y-m-d') : '' }}</td>
                 <td>{{ livre.note }}</td>
                 <td>
-                    <a href="{{ path('livre_show', {'id': livre.id}) }}">show</a>
-                    <a href="{{ path('livre_edit', {'id': livre.id}) }}">edit</a>
+                    <a class="btn btn-primary" href="{{ path('livre_show', {'id': livre.id}) }}">Voir</a>
+                    <a class="btn btn-secondary" href="{{ path('livre_edit', {'id': livre.id}) }}">Editer</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="7">no records found</td>
+                <td colspan="7">Pas de Livre trouver</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('livre_new') }}">Create new</a>
+    <a class="btn btn-primary" href="{{ path('livre_new') }}">Ajouter un nouveau Livre</a>
 {% endblock %}

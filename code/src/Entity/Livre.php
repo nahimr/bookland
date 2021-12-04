@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\Isbn;
+use Symfony\Component\Validator\Constraints\Range;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -44,6 +45,9 @@ class Livre
 
     /**
      * @ORM\Column(type="smallint")
+     * @Assert\Range(min=0, max=20,
+     *     maxMessage="La note maximale est {{ limit }}",
+     *     minMessage="La note minimale est {{ limit }}")
      */
     private $note;
 
