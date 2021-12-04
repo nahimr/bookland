@@ -95,8 +95,6 @@ class LivreFixtures extends Fixture
             $livreObj->setDateDeParution($livre["date"]);
             $livreObj->setNote($livre["note"]);
 
-            // TODO: Make auteur with books here instead of AuteurFixtures
-
             foreach ($livre["auteurs"] as $auteur)
             {
                 $livreObj->addAuteur($this->getReference($auteur));

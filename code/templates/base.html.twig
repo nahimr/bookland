@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
         <meta charset="UTF-8">
         <title>Bookland - {% block title %}{% endblock %}</title>
@@ -23,7 +23,7 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a class="nav-link {% if app.request.attributes.get('_route') starts with 'accueil' %}active{% endif %}" aria-current="page" href="#">Accueil</a>
+                                <a class="nav-link {% if app.request.attributes.get('_route') starts with 'accueil' %}active{% endif %}" aria-current="page" href="{{ path('accueil') }}">Accueil</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link {% if app.request.attributes.get('_route') starts with 'genre' %}active{% endif %}" href="{{ path('genre_index') }}">Genres</a>
