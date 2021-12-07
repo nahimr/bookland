@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Livre;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,32 +20,59 @@ class LivreRepository extends ServiceEntityRepository
         parent::__construct($registry, Livre::class);
     }
 
-    // /**
-    //  * @return Livre[] Returns an array of Livre objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('l')
-            ->andWhere('l.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('l.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+//    /**
+//     * @return Livre[]
+//     */
+//
+//    public function filter(DateTime $from, DateTime $to, bool $distinctNatonality, )
+//    {
+//        return $this->createQueryBuilder('l')
+//
+//    }
 
-    /*
-    public function findOneBySomeField($value): ?Livre
+    /**
+     * @param DateTime|null $fromDate
+     * @param DateTime|null $toDate
+     * @param int|null $fromScore
+     * @param int|null $toScore
+     * @param bool $respectParity
+     * @param bool $distinctNationality
+     * @return Livre[]
+     */
+
+    public function filter(?DateTime $fromDate, ?DateTime $toDate,
+                           ?int $fromScore, ?int $toScore,
+                           bool $respectParity, bool $distinctNationality)
     {
-        return $this->createQueryBuilder('l')
-            ->andWhere('l.exampleField = :val')
-            ->setParameter('val', $value)
+        $query = $this->createQueryBuilder('l');
+
+        dump($fromDate);
+        dump($toDate);
+
+        if ($fromDate && $toDate)
+        {
+            $query->andWhere('l.date_de_parution BETWEEN :fromDate AND :toDate')
+                ->setParameter('fromDate', $fromDate)
+                ->setParameter('toDate', $toDate);
+        }
+
+        if ($fromScore <= 20 && $fromScore >= 0 &&
+            $toScore <= 20 && $toScore >= 0 && ($toScore - $fromScore) >= 0)
+        {
+            $query
+                ->andWhere('l.note BETWEEN :fromScore AND :toScore')
+                ->setParameter('fromScore', $fromScore)
+                ->setParameter('toScore', $toScore);
+        }
+
+        if ($distinctNationality)
+        {
+
+        }
+
+        return $query
+            ->orderBy('l.id', 'ASC')
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getResult();
     }
-    */
 }

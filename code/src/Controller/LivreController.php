@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Livre;
+use App\Form\LivreFilterType;
 use App\Form\LivreType;
 use App\Repository\LivreRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,12 +17,29 @@ use Symfony\Component\Routing\Annotation\Route;
 class LivreController extends AbstractController
 {
     /**
-     * @Route("/", name="livre_index", methods={"GET"})
+     * @Route("/", name="livre_index", methods={"GET", "POST"})
      */
-    public function index(LivreRepository $livreRepository): Response
+    public function index(Request $request, LivreRepository $livreRepository): Response
     {
+        $form = $this->createForm(LivreFilterType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $fromDate = $form->get('fromDate')->getData();
+            $toDate = $form->get('toDate')->getData();
+
+            return $this->render('livre/index.html.twig', [
+                'livres' => $livreRepository->filter($fromDate, $toDate,
+                    $form->get('fromScore')->getData(), $form->get('toScore')->getData(),
+                    $form->get('sexualParity')->getData(), $form->get('distinctNationality')->getData()),
+                'form' => $form->createView(),
+            ]);
+        }
+
         return $this->render('livre/index.html.twig', [
             'livres' => $livreRepository->findAll(),
+            'form' => $form->createView(),
         ]);
     }
 
@@ -34,7 +52,8 @@ class LivreController extends AbstractController
         $form = $this->createForm(LivreType::class, $livre);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid())
+        {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($livre);
             $entityManager->flush();
@@ -66,7 +85,8 @@ class LivreController extends AbstractController
         $form = $this->createForm(LivreType::class, $livre);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid())
+        {
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('livre_index', [], Response::HTTP_SEE_OTHER);
@@ -83,7 +103,8 @@ class LivreController extends AbstractController
      */
     public function delete(Request $request, Livre $livre): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$livre->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$livre->getId(), $request->request->get('_token')))
+        {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($livre);
             $entityManager->flush();

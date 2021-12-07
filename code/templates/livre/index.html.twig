@@ -5,6 +5,21 @@
 {% block body %}
     <h1>Livre Liste</h1>
 
+    <div class="livre-filter" data-controller="livre">
+        <button type="button" class="btn btn-primary" data-action="livre#toggle">Filtre</button>
+        <div id="filter_elements" class="card">
+            <div class="card-header">
+                Filter
+            </div>
+            <div class="card-body container">
+                {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                    <button class="btn btn-primary">{{ button_label|default('Filter') }}</button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
     <table class="table">
         <thead>
             <tr>

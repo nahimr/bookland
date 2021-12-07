@@ -7,8 +7,21 @@
 
 // any CSS you import will output into a single css file (app.css in this case)
 import './styles/app.css';
+import './styles/livre.css'
 
 // start the Stimulus application
 import './bootstrap';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-datepicker/dist/css/bootstrap-datepicker.css'
+
+const $ = require('jquery');
+global.$ = global.jQuery = $;
+
+require('bootstrap');
+require('bootstrap-datepicker');
+
+
+// or you can include specific pieces
+// require('bootstrap/js/dist/tooltip');
+// require('bootstrap/js/dist/popover');
