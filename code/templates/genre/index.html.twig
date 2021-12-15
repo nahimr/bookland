@@ -3,33 +3,33 @@
 {% block title %}Genre{% endblock %}
 
 {% block body %}
-    <h1>Genre Liste</h1>
-
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for genre in genres %}
-            <tr>
-                <td>{{ genre.id }}</td>
-                <td>{{ genre.nom }}</td>
-                <td>
-                    <a class="btn btn-primary" href="{{ path('genre_show', {'id': genre.id}) }}">Voir</a>
-                    <a class="btn btn-secondary" href="{{ path('genre_edit', {'id': genre.id}) }}">Editer</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">Pas de genre trouver</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div class="table-responsive table-bordered">
+        <table class="table table-dark table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nom</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for genre in genres %}
+                <tr>
+                    <td><strong>{{ genre.id }}</strong></td>
+                    <td>{{ genre.nom }}</td>
+                    <td>
+                        <a class="btn btn-primary" href="{{ path('genre_show', {'id': genre.id}) }}">Voir</a>
+                        <a class="btn btn-secondary" href="{{ path('genre_edit', {'id': genre.id}) }}">Editer</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">Pas de genre trouver</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
     <a class="btn btn-primary" href="{{ path('genre_new') }}">Créer nouveau Genre</a>
 {% endblock %}

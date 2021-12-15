@@ -3,7 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Livre;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -19,32 +21,65 @@ class LivreRepository extends ServiceEntityRepository
         parent::__construct($registry, Livre::class);
     }
 
-    // /**
-    //  * @return Livre[] Returns an array of Livre objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('l')
-            ->andWhere('l.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('l.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+//    /**
+//     * @return Livre[]
+//     */
+//
+//    public function filter(DateTime $from, DateTime $to, bool $distinctNatonality, )
+//    {
+//        return $this->createQueryBuilder('l')
+//
+//    }
 
-    /*
-    public function findOneBySomeField($value): ?Livre
+    /**
+     * @param DateTime|null $fromDate
+     * @param DateTime|null $toDate
+     * @param int|null $fromScore
+     * @param int|null $toScore
+     * @param bool $respectParity
+     * @param bool $distinctNationality
+     * @return Livre[]
+     */
+
+    public function filter(?DateTime $fromDate, ?DateTime $toDate,
+                           ?int $fromScore, ?int $toScore,
+                           bool $respectParity, bool $distinctNationality)
     {
-        return $this->createQueryBuilder('l')
-            ->andWhere('l.exampleField = :val')
-            ->setParameter('val', $value)
+        $query = $this->createQueryBuilder('l');
+
+        if ($fromDate && $toDate)
+        {
+            $query
+                ->andWhere('l.date_de_parution BETWEEN :fromDate AND :toDate')
+                ->setParameter('fromDate', $fromDate->format('Y-m-d'))
+                ->setParameter('toDate', $toDate->format('Y-m-d'));
+        }
+
+        if ($fromScore && $toScore && $fromScore <= 20 && $fromScore >= 0 &&
+            $toScore <= 20 && $toScore >= 0 && ($toScore - $fromScore) >= 0)
+        {
+            $query
+                ->andWhere('l.note BETWEEN :fromScore AND :toScore')
+                ->setParameter('fromScore', $fromScore)
+                ->setParameter('toScore', $toScore);
+        }
+
+        if ($distinctNationality)
+        {
+            $query
+                ->innerJoin('l.auteurs', 'a1')
+                ->innerJoin('l.auteurs', 'a2')
+                ->andWhere('a1.nationalite != a2.nationalite');
+        }
+
+        if ($respectParity)
+        {
+
+        }
+
+        return $query
+            ->orderBy('l.id', 'ASC')
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getResult();
     }
-    */
 }

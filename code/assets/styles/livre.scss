@@ -1,0 +1,12 @@
+.livre-filter
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  gap: 16px;
+}
+
+.livre-filter > .container
+{
+  display: flex;
+}
