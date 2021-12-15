@@ -11,6 +11,8 @@ services:
       MYSQL_PASSWORD: free_me_babe_after_malloc
     ports:
       - "3306:3306"
+    volumes:
+      - mysqldata:/var/lib/mysql
     networks:
       - framework_web_network
 
@@ -43,6 +45,7 @@ services:
 volumes:
   vendor:
   var:
+  mysqldata:
 
 networks:
   framework_web_network:

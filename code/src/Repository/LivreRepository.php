@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Livre;
 use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -46,9 +47,6 @@ class LivreRepository extends ServiceEntityRepository
     {
         $query = $this->createQueryBuilder('l');
 
-        dump($fromDate);
-        dump($toDate);
-
         if ($fromDate && $toDate)
         {
             $query->andWhere('l.date_de_parution BETWEEN :fromDate AND :toDate')
@@ -67,7 +65,19 @@ class LivreRepository extends ServiceEntityRepository
 
         if ($distinctNationality)
         {
+            $query
+                ->join('l.auteurs', 'a1')
+                ->leftJoin('l.auteurs', 'a2')
+                ->andWhere('a1.nationalite != a2.nationalite');
+        }
 
+        if ($respectParity)
+        {
+//            $query
+//                ->join('l.auteurs', 'a3')
+//                ->join('l.auteurs', 'a4')
+//                ->groupBy('sexe')
+//                ->having('count(a3) = count(a4)');
         }
 
         return $query

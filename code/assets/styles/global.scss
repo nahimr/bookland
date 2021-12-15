@@ -2,6 +2,56 @@
 
 // customize some Bootstrap variables
 $primary: darken(#428bca, 20%);
+$accordion-button-bg: rgb(31, 31, 31);
+$accordion-bg: rgb(31, 31, 31);
+$accordion-button-active-bg: rgb(31, 31, 31);
+$accordion-color: white;
+$accordion-button-active-color: white;
+$accordion-border-color: none;
+
+@import "./accueil.scss";
+@import "./livre.scss";
 
 // the ~ allows you to reference things in node_modules
 @import "~bootstrap/scss/bootstrap";
+
+// route-className
+
+body
+{
+  color: white;
+  background: white
+  linear-gradient(90deg, rgba(69, 170, 242, 1) 0%, rgba(75, 123, 236, 1) 47%, rgba(56, 103, 214, 1) 100%);
+}
+
+*
+{
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
+}
+
+nav
+{
+  font-weight: 100;
+  background: rgb(0,0,0);
+}
+
+.table
+{
+  margin-bottom: 0;
+}
+
+.table-bordered
+{
+  border-radius: 0.25rem;
+  margin: 0 0 16px 0;
+}
+
+main
+{
+  margin: 32px;
+}
+
+.accordion-button
+{
+  color: white;
+}
