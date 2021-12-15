@@ -5,20 +5,20 @@ export default class extends Controller
 {
     connect()
     {
-        $('#filter_elements').hide();
+        //$('#filter_elements').hide();
         $('#livre_filter_fromDate').datepicker({
             format: 'yyyy-mm-dd',
         });
         $('#livre_filter_toDate').datepicker({
             format: 'yyyy-mm-dd',
-        });
+        })
     }
 
     toggle() // Method called by clicking on filter
     {
-        let filterElements = $('#filter_elements');
+        //let filterElements = $('#filter_elements');
 
-        filterElements.is(":hidden") ? filterElements.show() : filterElements.hide();
+        //filterElements.is(":hidden") ? filterElements.show() : filterElements.hide();
     }
 
     noteHandler()
@@ -41,5 +41,10 @@ export default class extends Controller
         //     console.log("setDate");
         //     dateMax.datepicker("setDate", new Date(Date.parse(dateMin)));
         // }
+    }
+
+    filter()
+    {
+        $('.collapseOne').collapse('show');
     }
 }
