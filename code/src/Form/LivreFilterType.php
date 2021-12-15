@@ -33,6 +33,7 @@ class LivreFilterType extends AbstractType
                 "label" => "Note maximale",
                 "html5" => true,
                 "mapped" => true,
+                "required" => false,
             ])
             ->add('fromDate', DateTimeType::class, [
                 "label" => "Date minimum",

@@ -49,12 +49,13 @@ class LivreRepository extends ServiceEntityRepository
 
         if ($fromDate && $toDate)
         {
-            $query->andWhere('l.date_de_parution BETWEEN :fromDate AND :toDate')
-                ->setParameter('fromDate', $fromDate)
-                ->setParameter('toDate', $toDate);
+            $query
+                ->andWhere('l.date_de_parution BETWEEN :fromDate AND :toDate')
+                ->setParameter('fromDate', $fromDate->format('Y-m-d'))
+                ->setParameter('toDate', $toDate->format('Y-m-d'));
         }
 
-        if ($fromScore <= 20 && $fromScore >= 0 &&
+        if ($fromScore && $toScore && $fromScore <= 20 && $fromScore >= 0 &&
             $toScore <= 20 && $toScore >= 0 && ($toScore - $fromScore) >= 0)
         {
             $query
@@ -66,18 +67,14 @@ class LivreRepository extends ServiceEntityRepository
         if ($distinctNationality)
         {
             $query
-                ->join('l.auteurs', 'a1')
-                ->leftJoin('l.auteurs', 'a2')
+                ->innerJoin('l.auteurs', 'a1')
+                ->innerJoin('l.auteurs', 'a2')
                 ->andWhere('a1.nationalite != a2.nationalite');
         }
 
         if ($respectParity)
         {
-//            $query
-//                ->join('l.auteurs', 'a3')
-//                ->join('l.auteurs', 'a4')
-//                ->groupBy('sexe')
-//                ->having('count(a3) = count(a4)');
+
         }
 
         return $query
