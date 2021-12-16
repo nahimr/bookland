@@ -10,5 +10,6 @@ import 'bootstrap-datepicker/dist/css/bootstrap-datepicker.css'
 const $ = require('jquery');
 global.$ = global.jQuery = $;
 
+require('@popperjs/core')
 require('bootstrap');
 require('bootstrap-datepicker');

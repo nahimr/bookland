@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\Auteur;
 use App\Entity\Genre;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -13,7 +15,11 @@ class GenreType extends AbstractType
     {
         $builder
             ->add('nom')
-            ->add('livres')
+            ->add('livres', EntityType::class, [
+                'class' => Auteur::class,
+                'multiple' => true,
+                'by_reference' => false
+            ])
         ;
     }
 
