@@ -5,8 +5,8 @@ namespace App\Repository;
 use App\Entity\Livre;
 use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
+use function Doctrine\ORM\QueryBuilder;
 
 /**
  * @method Livre|null find($id, $lockMode = null, $lockVersion = null)
@@ -60,7 +60,7 @@ class LivreRepository extends ServiceEntityRepository
             $query
                 ->innerJoin('l.auteurs', 'a1')
                 ->innerJoin('l.auteurs', 'a2')
-                ->andWhere('a1.nationalite != a2.nationalite');
+                ->andWhere($query->expr()->neq('a1.nationalite', 'a2.nationalite'));
         }
 
         if ($respectParity)
@@ -72,7 +72,8 @@ class LivreRepository extends ServiceEntityRepository
                 ->setParameter('homme', 'M')
                 ->andWhere('a4.sexe = :homme')
                 ->andWhere('a3.sexe = :femme')
-                //->having('COUNT(a3.id) = COUNT(a4.id)')
+                ->having($query->expr()->eq($query->expr()->countDistinct('a4.id'),
+                $query->expr()->countDistinct('a3.id')))
                 ->groupBy('l');
         }
 
