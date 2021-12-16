@@ -14,4 +14,13 @@
     </div>
 
     {{ include('auteur/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+
+    <div class="card bg-dark mt-4">
+        <div class="card-body">
+            {{ form_start(form_increment) }}
+                {{ form_widget(form_increment) }}
+                <button class="btn btn-primary">{{ button_label|default('Incrémenter les notes') }}</button>
+            {{ form_end(form_increment) }}
+        </div>
+    </div>
 {% endblock %}

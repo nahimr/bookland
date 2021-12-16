@@ -30,7 +30,8 @@ class LivreController extends AbstractController
             $toDate = $form->get('toDate')->getData();
 
             return $this->render('livre/index.html.twig', [
-                'livres' => $livreRepository->filter($fromDate, $toDate,
+                'livres' => $livreRepository->filter($form->get('titre')->getData(),
+                    $fromDate, $toDate,
                     $form->get('fromScore')->getData(), $form->get('toScore')->getData(),
                     $form->get('sexualParity')->getData(), $form->get('distinctNationality')->getData()),
                 'form' => $form->createView(),

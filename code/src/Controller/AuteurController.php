@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Auteur;
+use App\Form\AuteurIncrementNoteType;
 use App\Form\AuteurType;
 use App\Form\AuthorFilterType;
 use App\Repository\AuteurRepository;
@@ -77,11 +78,31 @@ class AuteurController extends AbstractController
     public function edit(Request $request, Auteur $auteur): Response
     {
         $form = $this->createForm(AuteurType::class, $auteur);
+        $form_increment = $this->createForm(AuteurIncrementNoteType::class);
         $form->handleRequest($request);
+        $form_increment->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid())
+        {
             $this->getDoctrine()->getManager()->flush();
             $this->addFlash('success', 'L\'auteur ' . $auteur->getNomPrenom() . ' a été modifié');
+
+            return $this->redirectToRoute('auteur_show', [
+                'id' => $auteur->getId(),
+            ], Response::HTTP_SEE_OTHER);
+        }
+
+        if ($form_increment->isSubmitted() && $form_increment->isValid())
+        {
+            $offset = $form_increment->get('incrementNote')->getData();
+
+            foreach ($auteur->getLivres() as $livre)
+            {
+                $livre->setNote(min($livre->getNote() + $offset, 20));
+            }
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($auteur);
+            $em->flush();
 
             return $this->redirectToRoute('auteur_show', [
                 'id' => $auteur->getId(),
@@ -91,6 +112,7 @@ class AuteurController extends AbstractController
         return $this->render('auteur/edit.html.twig', [
             'auteur' => $auteur,
             'form' => $form->createView(),
+            'form_increment' => $form_increment->createView(),
         ]);
     }
 
