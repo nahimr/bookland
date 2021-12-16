@@ -31,11 +31,18 @@ class LivreRepository extends ServiceEntityRepository
      * @return Livre[]
      */
 
-    public function filter(?DateTime $fromDate, ?DateTime $toDate,
+    public function filter(?String $titre, ?DateTime $fromDate, ?DateTime $toDate,
                            ?int $fromScore, ?int $toScore,
                            bool $respectParity, bool $distinctNationality)
     {
         $query = $this->createQueryBuilder('l');
+
+        if ($titre)
+        {
+            $query
+                ->andWhere('l.titre LIKE :titre')
+                ->setParameter('titre', '%'.$titre.'%');
+        }
 
         if ($fromDate && $toDate)
         {
