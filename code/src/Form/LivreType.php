@@ -2,7 +2,11 @@
 
 namespace App\Form;
 
+use App\Entity\Auteur;
+use App\Entity\Genre;
 use App\Entity\Livre;
+use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -27,8 +31,16 @@ class LivreType extends AbstractType
                     "max" => 20,
                 ]
             ])
-            ->add('auteurs')
-            ->add('genres')
+            ->add('auteurs', EntityType::class, [
+                'class' => Auteur::class,
+                'multiple' => true,
+                'by_reference' => false
+            ])
+            ->add('genres', EntityType::class, [
+                'class' => Genre::class,
+                'multiple' => true,
+                'by_reference' => false
+            ])
         ;
     }
 

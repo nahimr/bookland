@@ -41,7 +41,6 @@
                 <th>Note</th>
                 <td>{{ livre.note }} / 20</td>
             </tr>
-
             <tr>
                 <th>Auteurs</th>
                 <td>
@@ -54,10 +53,18 @@
                     </ul>
                 </td>
             </tr>
+            <tr>
+                <th>Genres</th>
+                <td>
+                    <ul class="list-group">
+                        {% for genre in livre.genres %}
+                            <li class="list-group-item">
+                                <a class="link-primary" href="{{ path('genre_show', {'id': genre.id}) }}">{{ genre }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
         </tbody>
     </table>
-
-    <div class="btn-group my-3" role="group" aria-label="Basic example"></div>
-
-
 {% endblock %}

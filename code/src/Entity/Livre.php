@@ -46,8 +46,7 @@ class Livre
     /**
      * @ORM\Column(type="smallint")
      * @Assert\Range(min=0, max=20,
-     *     maxMessage="La note maximale est {{ limit }}",
-     *     minMessage="La note minimale est {{ limit }}")
+     *     notInRangeMessage="La note doit être entre {{ min }} et {{ max }}")
      */
     private $note;
 

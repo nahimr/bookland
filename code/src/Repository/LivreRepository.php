@@ -21,7 +21,6 @@ class LivreRepository extends ServiceEntityRepository
         parent::__construct($registry, Livre::class);
     }
 
-
     /**
      * @param DateTime|null $fromDate
      * @param DateTime|null $toDate
