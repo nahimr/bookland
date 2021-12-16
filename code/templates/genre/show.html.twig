@@ -5,7 +5,7 @@
 {% block body %}
     <h1>Genre</h1>
 
-    <table class="table">
+    <table class="table table-dark table-striped">
         <tbody>
             <tr>
                 <th>Id</th>
@@ -15,12 +15,30 @@
                 <th>Nom</th>
                 <td>{{ genre.nom }}</td>
             </tr>
+            <tr>
+                <th>Auteurs</th>
+                <td>
+                    {% set auteurs = [] %}
+                    <ul class="list-group">
+                        {% for livre in genre.livres %}
+                            {% for auteur in livre.auteurs %}
+                                {% if auteur not in auteurs %}
+                                    {% set auteurs = auteurs|merge([auteur]) %}
+                                    <li class="list-group-item">
+                                        <a href="{{ path('auteur_show', {'id': auteur.id}) }}">{{ auteur.nomPrenom }}</a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('genre_index') }}">back to list</a>
+    <a class="btn btn-primary" href="{{ path('genre_index') }}">back to list</a>
 
-    <a href="{{ path('genre_edit', {'id': genre.id}) }}">edit</a>
+    <a class="btn btn-primary" href="{{ path('genre_edit', {'id': genre.id}) }}">edit</a>
 
     {{ include('genre/_delete_form.html.twig') }}
 {% endblock %}
