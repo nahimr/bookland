@@ -21,15 +21,6 @@ class LivreRepository extends ServiceEntityRepository
         parent::__construct($registry, Livre::class);
     }
 
-//    /**
-//     * @return Livre[]
-//     */
-//
-//    public function filter(DateTime $from, DateTime $to, bool $distinctNatonality, )
-//    {
-//        return $this->createQueryBuilder('l')
-//
-//    }
 
     /**
      * @param DateTime|null $fromDate
@@ -74,7 +65,15 @@ class LivreRepository extends ServiceEntityRepository
 
         if ($respectParity)
         {
-
+            $query
+                ->innerJoin('l.auteurs', 'a3')
+                ->innerJoin('l.auteurs', 'a4')
+                ->setParameter('femme', 'F')
+                ->setParameter('homme', 'M')
+                ->andWhere('a4.sexe = :homme')
+                ->andWhere('a3.sexe = :femme')
+                //->having('COUNT(a3.id) = COUNT(a4.id)')
+                ->groupBy('l');
         }
 
         return $query
