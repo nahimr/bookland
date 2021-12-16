@@ -11,7 +11,7 @@ class AuthorFilterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('ThreeDistinctBooks', CheckboxType::class, [
+            ->add('threeDistinctBooks', CheckboxType::class, [
                 "label" => "Auteur ayant écrit plus de 3 livres différents",
                 "required" => false,
             ])

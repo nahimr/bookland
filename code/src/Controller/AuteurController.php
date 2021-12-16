@@ -24,7 +24,7 @@ class AuteurController extends AbstractController
         $form = $this->createForm(AuthorFilterType::class);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid() && $form->get('ThreeDistinctBooks')->getData() == 1)
+        if($form->isSubmitted() && $form->isValid() && $form->get('threeDistinctBooks')->getData() == 1)
         {
             return $this->render('auteur/index.html.twig', [
                 'auteurs' => $auteurRepository->findByThreeDistinctBooks(),
