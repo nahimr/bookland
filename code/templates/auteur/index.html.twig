@@ -51,7 +51,7 @@
                     <td>{{ auteur.id }}</td>
                     <td>{{ auteur.nomPrenom }}</td>
                     <td>{{ auteur.sexe }}</td>
-                    <td>{{ auteur.dateDeNaissance ? auteur.dateDeNaissance|date('Y-m-d') : '' }}</td>
+                    <td>{{ auteur.dateDeNaissance ? auteur.dateDeNaissance|format_datetime('full', 'none', locale='fr') : '' }}</td>
                     <td>{{ auteur.nationalite }}</td>
                     <td>
                         <div class="btn-group me-2">

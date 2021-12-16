@@ -22,13 +22,17 @@ class AuteurType extends AbstractType
                     'Femme' => 'F',
                 ]
             ])
-            ->add('date_de_naissance')
+            ->add('date_de_naissance', null, [
+                'label' => 'Date de Naissance',
+                "html5" => false,
+                "widget" => "single_text",
+            ])
             ->add('nationalite')
             ->add('livres', EntityType::class, [
                 'class' => Livre::class,
                 'multiple' => true,
                 'by_reference' => false,
-
+                'required' => false,
             ])
         ;
     }

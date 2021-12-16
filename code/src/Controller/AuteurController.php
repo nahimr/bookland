@@ -83,7 +83,9 @@ class AuteurController extends AbstractController
             $this->getDoctrine()->getManager()->flush();
             $this->addFlash('success', 'L\'auteur ' . $auteur->getNomPrenom() . ' a été modifié');
 
-            return $this->redirectToRoute('auteur_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('auteur_show', [
+                'id' => $auteur->getId(),
+            ], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('auteur/edit.html.twig', [

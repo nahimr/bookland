@@ -23,7 +23,6 @@ class LivreType extends AbstractType
                 'label' => 'Date de parution',
                 "html5" => false,
                 "widget" => "single_text",
-                "format" => "yyyy-mm-dd",
             ])
             ->add('note', null, [
                 "attr" => [
