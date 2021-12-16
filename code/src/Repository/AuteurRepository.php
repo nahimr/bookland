@@ -47,4 +47,16 @@ class AuteurRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findByThreeDistinctBooks() {
+        return $this->createQueryBuilder('a')
+            ->innerJoin("a.livres", "l")
+            ->addSelect("COUNT(l.id) AS HIDDEN total")
+            ->andHaving("total >= :value")
+            ->setParameter('value', 3)
+            ->groupBy("a")
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }
