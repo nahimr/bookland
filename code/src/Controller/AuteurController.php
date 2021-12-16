@@ -81,6 +81,7 @@ class AuteurController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success', 'L\'auteur ' . $auteur->getNomPrenom() . ' a été modifié');
 
             return $this->redirectToRoute('auteur_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -100,6 +101,7 @@ class AuteurController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($auteur);
             $entityManager->flush();
+            $this->addFlash('success', 'L\'auteur ' . $auteur->getNomPrenom() . ' a été supprimé');
         }
 
         return $this->redirectToRoute('auteur_index', [], Response::HTTP_SEE_OTHER);

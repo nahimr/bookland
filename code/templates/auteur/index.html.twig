@@ -3,6 +3,15 @@
 {% block title %}Auteur{% endblock %}
 
 {% block body %}
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Auteurs</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group me-2">
+                <a class="btn btn-primary" href="{{ path('auteur_new') }}">Ajouter un nouvel auteur</a>
+            </div>
+        </div>
+    </div>
+
     <div class="livre-filter accordion mb-2" data-controller="auteur" id="filter-accordion">
         <div class="accordion-item">
             <h2 class="accordion-header" id="headingOne">
@@ -45,18 +54,18 @@
                     <td>{{ auteur.dateDeNaissance ? auteur.dateDeNaissance|date('Y-m-d') : '' }}</td>
                     <td>{{ auteur.nationalite }}</td>
                     <td>
-                        <a class="btn btn-primary" href="{{ path('auteur_show', {'id': auteur.id}) }}">Voir</a>
-                        <a class="btn btn-secondary" href="{{ path('auteur_edit', {'id': auteur.id}) }}">Editer</a>
+                        <div class="btn-group me-2">
+                            <a class="btn btn-primary" href="{{ path('auteur_show', {'id': auteur.id}) }}">Voir</a>
+                            <a class="btn btn-secondary" href="{{ path('auteur_edit', {'id': auteur.id}) }}">Editer</a>
+                        </div>
                     </td>
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="6">Pas d'auteurs trouvé</td>
+                    <td colspan="6">Aucun auteur trouvé</td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
     </div>
-
-    <a class="btn btn-primary" href="{{ path('auteur_new') }}">Créer un nouvel Auteur</a>
 {% endblock %}
