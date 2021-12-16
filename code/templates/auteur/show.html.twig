@@ -3,34 +3,59 @@
 {% block title %}Auteur{% endblock %}
 
 {% block body %}
-    <h1>Auteur</h1>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">{{ auteur.nomPrenom }}</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group me-2">
+                <a class="btn btn-primary" href="{{ path('auteur_index') }}">Retour</a>
+                <a class="btn btn-primary" href="{{ path('auteur_edit', {'id': auteur.id}) }}">Modifier</a>
+            </div>
+            {{ include('auteur/_delete_form.html.twig') }}
+        </div>
+    </div>
     {% set nomPrenom = auteur.nomPrenom | split(' ') %}
+    {% set genres = [] %}
+    {% for livre in auteur.livres|sort((a, b) => a.dateDeParution <=> b.dateDeParution) %}
+        {% for genre in livre.genres %}
+            {% if genre not in genres %}
+                {% set genres = genres|merge([genre]) %}
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
     <table class="table table-dark table-striped">
         <tbody>
             <tr>
                 <th>ID</th>
                 <td>{{ auteur.id }}</td>
             </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ nomPrenom[1] }}</td>
-            </tr>
-            <tr>
-                <th>Prénom</th>
-                <td>{{ nomPrenom[0] }}</td>
-            </tr>
+            {% if nomPrenom|length > 1 %}
+                <tr>
+                    <th>Nom</th>
+                    <td>{{ nomPrenom[1] }}</td>
+                </tr>
+                <tr>
+                    <th>Prénom</th>
+                    <td>{{ nomPrenom[0] }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <th>Nom et Prénom</th>
+                    <td>{{ nomPrenom[0] }}</td>
+                </tr>
+            {% endif %}
             <tr>
                 <th>Sexe</th>
                 <td>{{ auteur.sexe }}</td>
             </tr>
             <tr>
                 <th>Date de naissance</th>
-                <td>{{ auteur.dateDeNaissance ? auteur.dateDeNaissance|date('Y-m-d') : '' }}</td>
+                <td>{{ auteur.dateDeNaissance ? auteur.dateDeNaissance|format_datetime('full', 'none', locale='fr') : '' }}</td>
             </tr>
             <tr>
                 <th>Nationalité</th>
                 <td>{{ auteur.nationalite }}</td>
             </tr>
+            {% if auteur.livres is not empty %}
             <tr>
                 <th>Livres</th>
                 <td>
@@ -43,12 +68,21 @@
                     </ul>
                 </td>
             </tr>
+            {% endif %}
+            {% if genres is not empty %}
+                <tr>
+                    <th>Genres écrit</th>
+                    <td>
+                        <ul class="list-group">
+                            {% for genre in genres %}
+                                <li class="list-group-item">
+                                    <a href="{{ path('genre_show', {'id': genre.id}) }}">{{ genre }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+            {% endif %}
         </tbody>
     </table>
-
-    <a class="btn btn-primary" href="{{ path('auteur_index') }}">Retour vers la liste</a>
-
-    <a class="btn btn-primary" href="{{ path('auteur_edit', {'id': auteur.id}) }}">Editer</a>
-
-    {{ include('auteur/_delete_form.html.twig') }}
 {% endblock %}
