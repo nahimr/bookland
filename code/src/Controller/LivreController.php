@@ -87,9 +87,22 @@ class LivreController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid())
         {
-            $this->getDoctrine()->getManager()->flush();
+            $em = $this->getDoctrine()->getManager();
+            $livre = $form->getData();
 
-            return $this->redirectToRoute('livre_index', [], Response::HTTP_SEE_OTHER);
+            try{
+                $em->persist($livre);
+            } catch (\Exception $e)
+            {
+                dump($e->getMessage());
+            }
+
+            $em->flush();
+            $this->addFlash('success', $livre->getTitre() . ' a été modifié !');
+
+            return $this->redirectToRoute('livre_show', [
+                'id' => $livre->getId()
+            ], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('livre/edit.html.twig', [

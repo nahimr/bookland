@@ -13,6 +13,20 @@
         {% endblock %}
     </head>
     <body>
+        <div class="toast-container" style="position: fixed; top: 32px; right: 32px; z-index:1;">
+            {% for message in app.flashes('success') %}
+                <div class="toast show bg-dark" data-delay="5000" data-autohide="true" data-bs-animation="true" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header bg-dark">
+                        <img src="{{ asset('build/img/book.png') }}" class="rounded me-2" alt="" width="16" height="16">
+                        <strong class="me-auto">Bookland</strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body bg-dark">
+                        {{ message }}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
         <header>
             <nav class="navbar navbar-expand-lg navbar-dark bg-black">
                 <div class="container">

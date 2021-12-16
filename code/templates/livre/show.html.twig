@@ -1,9 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Livre{% endblock %}
+{% block title %}{{ livre.titre }}{% endblock %}
 
 {% block body %}
-    <h1>Livre</h1>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">{{ livre.titre }}</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group me-2">
+                <a class="btn btn-primary" href="{{ path('livre_index') }}">Retour</a>
+                <a class="btn btn-primary" href="{{ path('livre_edit', {'id': livre.id}) }}">Modifier</a>
+            </div>
+            {{ include('livre/_delete_form.html.twig') }}
+        </div>
+    </div>
 
     <table class="table table-dark table-striped">
         <tbody>
@@ -25,20 +34,32 @@
             </tr>
             <tr>
                 <th>Date de parution</th>
-                <td>{{ livre.dateDeParution ? livre.dateDeParution|date('Y-m-d') : '' }}</td>
+                <td>{{ livre.dateDeParution ? livre.dateDeParution|format_datetime('full', 'none', locale='fr')
+                    : 'Pas de date' }}</td>
             </tr>
             <tr>
                 <th>Note</th>
-                <td>{{ livre.note }}</td>
+                <td>{{ livre.note }} / 20</td>
             </tr>
-
             <tr>
                 <th>Auteurs</th>
                 <td>
                     <ul class="list-group">
                         {% for auteur in livre.auteurs %}
                             <li class="list-group-item">
-                                <a href="{{ path('auteur_show', {'id': auteur.id}) }}">{{ auteur }}</a>
+                                <a class="link-primary" href="{{ path('auteur_show', {'id': auteur.id}) }}">{{ auteur }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <th>Genres</th>
+                <td>
+                    <ul class="list-group">
+                        {% for genre in livre.genres %}
+                            <li class="list-group-item">
+                                <a class="link-primary" href="{{ path('genre_show', {'id': genre.id}) }}">{{ genre }}</a>
                             </li>
                         {% endfor %}
                     </ul>
@@ -46,10 +67,4 @@
             </tr>
         </tbody>
     </table>
-
-    <a href="{{ path('livre_index') }}">back to list</a>
-
-    <a href="{{ path('livre_edit', {'id': livre.id}) }}">edit</a>
-
-    {{ include('livre/_delete_form.html.twig') }}
 {% endblock %}
