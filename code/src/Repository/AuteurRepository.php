@@ -19,32 +19,15 @@ class AuteurRepository extends ServiceEntityRepository
         parent::__construct($registry, Auteur::class);
     }
 
-    // /**
-    //  * @return Auteur[] Returns an array of Auteur objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
+    public function findByThreeDistinctBooks() {
         return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('a.id', 'ASC')
-            ->setMaxResults(10)
+            ->innerJoin("a.livres", "l")
+            ->addSelect("COUNT(l.id) AS HIDDEN total")
+            ->andHaving("total >= :value")
+            ->setParameter('value', 3)
+            ->groupBy("a")
             ->getQuery()
             ->getResult()
         ;
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Auteur
-    {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

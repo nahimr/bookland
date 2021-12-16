@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Auteur;
 use App\Form\AuteurType;
+use App\Form\AuthorFilterType;
 use App\Repository\AuteurRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,12 +17,24 @@ use Symfony\Component\Routing\Annotation\Route;
 class AuteurController extends AbstractController
 {
     /**
-     * @Route("/", name="auteur_index", methods={"GET"})
+     * @Route("/", name="auteur_index", methods={"GET", "POST"})
      */
-    public function index(AuteurRepository $auteurRepository): Response
+    public function index(Request $request ,AuteurRepository $auteurRepository): Response
     {
+        $form = $this->createForm(AuthorFilterType::class);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid() && $form->get('threeDistinctBooks')->getData() == 1)
+        {
+            return $this->render('auteur/index.html.twig', [
+                'auteurs' => $auteurRepository->findByThreeDistinctBooks(),
+                'form' => $form->createView()
+            ]);
+        }
+
         return $this->render('auteur/index.html.twig', [
             'auteurs' => $auteurRepository->findAll(),
+            'form' => $form->createView()
         ]);
     }
 
