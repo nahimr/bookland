@@ -1,17 +1,13 @@
-{% extends 'base.html.twig' %}
+{% extends 'sub_base.html.twig' %}
 
 {% block title %}Editer Genre{% endblock %}
-
-{% block body %}
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">{{ genre.nom }}</h1>
-        <div class="btn-toolbar mb-2 mb-md-0">
-            <div class="btn-group me-2">
-                <a class="btn btn-primary" href="{{ path('genre_index') }}">Retour</a>
-            </div>
-            {{ include('genre/_delete_form.html.twig') }}
-        </div>
+{% block subtitle %}{{ genre.nom }}{% endblock %}
+{% block subnav %}
+    <div class="btn-group me-2">
+        <a class="btn btn-primary" href="{{ path('genre_index') }}">Retour</a>
     </div>
-
+    {{ include('genre/_delete_form.html.twig') }}
+{% endblock %}
+{% block body %}
     {{ include('genre/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
 {% endblock %}

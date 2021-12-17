@@ -6,8 +6,6 @@ use App\Repository\LivreRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Constraints\Isbn;
-use Symfony\Component\Validator\Constraints\Range;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -24,7 +22,7 @@ class Livre
 
     /**
      * @ORM\Column(type="string", length=255)
-     *
+     * @Assert\Isbn(type="isbn13", isbn13Message="Ce n'est pas un ISBN-13")
      */
     private $isbn;
 
@@ -35,11 +33,13 @@ class Livre
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\GreaterThan(value=0, message="Le livre doit avoir au moins une page")
      */
     private $nbpages;
 
     /**
      * @ORM\Column(type="date")
+     * @Assert\LessThan(value="tomorrow", message="La date doit être antérieur à demain")
      */
     private $date_de_parution;
 

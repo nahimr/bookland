@@ -7,9 +7,9 @@ use App\Entity\Livre;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\LessThan;
 
 class AuteurType extends AbstractType
 {
@@ -21,12 +21,17 @@ class AuteurType extends AbstractType
                 'choices' => [
                     'Homme' => 'M',
                     'Femme' => 'F',
-                ]
+                ],
             ])
             ->add('date_de_naissance', null, [
                 'label' => 'Date de Naissance',
                 "html5" => false,
                 "widget" => "single_text",
+                'constraints' => [new LessThan([
+                    'value' => 'tomorrow',
+                    'message' => 'La date doit être antérieur à demain',
+
+                ])],
             ])
             ->add('nationalite')
             ->add('livres', EntityType::class, [

@@ -18,7 +18,8 @@ class GenreType extends AbstractType
             ->add('livres', EntityType::class, [
                 'class' => Auteur::class,
                 'multiple' => true,
-                'by_reference' => false
+                'by_reference' => false,
+                'required' => false,
             ])
         ;
     }

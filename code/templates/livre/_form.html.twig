@@ -1,6 +1,7 @@
 <div class="card bg-dark" data-controller="livre">
     <div class="card-body">
         {{ form_start(form) }}
+        {{ form_errors(form) }}
         {{ form_widget(form) }}
             <button class="btn btn-primary">{{ button_label|default('Ajouter un nouveau livre') }}</button>
         {{ form_end(form) }}
