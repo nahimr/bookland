@@ -6,8 +6,6 @@ use App\Repository\LivreRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Constraints\Isbn;
-use Symfony\Component\Validator\Constraints\Range;
 use Doctrine\ORM\Mapping as ORM;
 
 /**

@@ -5,7 +5,6 @@ namespace App\Form;
 use App\Entity\Auteur;
 use App\Entity\Genre;
 use App\Entity\Livre;
-use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -35,7 +34,7 @@ class LivreType extends AbstractType
                 ],
                 'constraints' => [new GreaterThan([
                     'value' => 0,
-                    'message' => 'Le livre doit avoir au moins une page'
+                    'message' => 'Le livre doit avoir au moins une page',
                 ])],
             ])
             ->add('date_de_parution', null, [
@@ -45,8 +44,7 @@ class LivreType extends AbstractType
                 'constraints' => [new LessThan([
                     'value' => 'tomorrow',
                     'message' => 'La date doit être antérieur à demain',
-
-                ])]
+                ])],
             ])
             ->add('note', null, [
                 'attr' => [
@@ -57,17 +55,17 @@ class LivreType extends AbstractType
                     'min' => 0,
                     'max' => 20,
                     'notInRangeMessage' => 'La note doit être entre {{ min }} et {{ max }}',
-                ])]
+                ])],
             ])
             ->add('auteurs', EntityType::class, [
                 'class' => Auteur::class,
                 'multiple' => true,
-                'by_reference' => false
+                'by_reference' => false,
             ])
             ->add('genres', EntityType::class, [
                 'class' => Genre::class,
                 'multiple' => true,
-                'by_reference' => false
+                'by_reference' => false,
             ])
         ;
     }
