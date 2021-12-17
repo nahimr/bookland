@@ -24,7 +24,7 @@ class Livre
 
     /**
      * @ORM\Column(type="string", length=255)
-     *
+     * @Assert\Isbn(type="isbn13", isbn13Message="Ce n'est pas un ISBN-13")
      */
     private $isbn;
 
@@ -35,11 +35,13 @@ class Livre
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\GreaterThan(value=0, message="Le livre doit avoir au moins une page")
      */
     private $nbpages;
 
     /**
      * @ORM\Column(type="date")
+     * @Assert\LessThan(value="tomorrow", message="La date doit être antérieur à demain")
      */
     private $date_de_parution;
 
