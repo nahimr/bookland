@@ -12,8 +12,17 @@
                 Bookland est une librairie qui répertorie tout les livres par genres et par auteurs.
             </p>
             <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-                <button type="button" class="btn btn-primary btn-lg px-4 gap-3">En savoir plus</button>
+                <form method="get" action="{{ path('init') }}">
+                    <button type="submit" class="btn btn-primary btn-lg px-4 gap-3">Initialiser le projet</button>
+                </form>
             </div>
+            <p class="lead mt-4">
+                {% if init_loaded is defined %}
+                    {% if init_loaded %}
+                        Initialisation effectuée !
+                    {% endif %}
+                {% endif %}
+            </p>
         </div>
     </div>
 
