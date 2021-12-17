@@ -38,15 +38,6 @@ class FixtureLoader
 
     public function getFixture(string $className) : Fixture
     {
-//        if ($this->loader == null) {
-//            throw new FixtureNotLoadedException(
-//                sprintf(
-//                    'The fixture %s must be loaded before you can access it.',
-//                    $className
-//                )
-//            );
-//        }
-
         return $this->loader->getFixture($className);
     }
 
