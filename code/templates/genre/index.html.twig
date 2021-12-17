@@ -1,17 +1,11 @@
-{% extends 'base.html.twig' %}
+{% extends 'sub_base.html.twig' %}
 
 {% block title %}Genre{% endblock %}
-
+{% block subtitle %}Genres{% endblock %}
+{% block subnav %}
+    <a class="btn btn-primary" href="{{ path('genre_new') }}">Ajouter un nouveau genre</a>
+{% endblock %}
 {% block body %}
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Genres</h1>
-        <div class="btn-toolbar mb-2 mb-md-0">
-            <div class="btn-group me-2">
-                <a class="btn btn-primary" href="{{ path('genre_new') }}">Ajouter un nouveau genre</a>
-            </div>
-        </div>
-    </div>
-
     <div class="table-responsive table-bordered">
         <table class="table table-dark table-striped">
             <thead>
@@ -29,7 +23,7 @@
                     <td>
                         <div class="btn-group me-2">
                             <a class="btn btn-primary" href="{{ path('genre_show', {'id': genre.id}) }}">Voir</a>
-                            <a class="btn btn-secondary" href="{{ path('genre_edit', {'id': genre.id}) }}">Editer</a>
+                            <a class="btn btn-secondary" href="{{ path('genre_edit', {'id': genre.id}) }}">Modifier</a>
                         </div>
                     </td>
                 </tr>
