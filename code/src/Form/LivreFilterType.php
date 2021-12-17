@@ -15,7 +15,8 @@ class LivreFilterType extends AbstractType
     {
         $builder
             ->add('titre', TextType::class, [
-                'label' => 'Titre'
+                'label' => 'Titre',
+                'error_bubbling' => true,
             ])
             ->add('fromScore', NumberType::class, [
                 "attr" => [
@@ -27,6 +28,7 @@ class LivreFilterType extends AbstractType
                 "html5" => true,
                 "mapped" => true,
                 "required"   => false,
+                'error_bubbling' => true,
             ])
             ->add('toScore', NumberType::class, [
                 "attr" => [
@@ -38,6 +40,7 @@ class LivreFilterType extends AbstractType
                 "html5" => true,
                 "mapped" => true,
                 "required" => false,
+                'error_bubbling' => true,
             ])
             ->add('fromDate', DateTimeType::class, [
                 "label" => "Date minimum",
@@ -45,6 +48,7 @@ class LivreFilterType extends AbstractType
                 "html5" => false,
                 "widget" => "single_text",
                 "format" => "yyyy-mm-dd",
+                'error_bubbling' => true,
             ])
             ->add('toDate', DateTimeType::class, [
                 "label" => "Date maximum",
@@ -52,14 +56,17 @@ class LivreFilterType extends AbstractType
                 "html5" => false,
                 "widget" => "single_text",
                 "format" => "yyyy-mm-dd",
+                'error_bubbling' => true,
             ])
             ->add('distinctNationality', CheckboxType::class, [
                 "label" => "Livres ayant des auteurs de différente nationalités",
                 "required" => false,
+                'error_bubbling' => true,
             ])
             ->add('sexualParity', CheckboxType::class, [
                 "label" => "Livres ayant des auteurs avec une parité femmes/hommes (50%)",
                 "required" => false,
+                'error_bubbling' => true,
             ]);
     }
 }
