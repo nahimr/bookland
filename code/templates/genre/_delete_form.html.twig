@@ -1,10 +1,11 @@
-<form data-controller="auteur" method="post" action="{{ path('genre_delete', {'id': genre.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+<form method="post" action="{{ path('genre_delete', {'id': genre.id}) }}"
+      onsubmit="return confirm('Êtes-vous de supprimer '+{{ genre.nom }})+' ?';">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ genre.id) }}">
 
         {% if genre.livres is not empty %}
-            <button class="btn btn-danger" type="button" disabled>
+            <button class="btn btn-danger" disabled>
         {% else %}
-            <button class="btn btn-danger" type="button">
+            <button class="btn btn-danger">
         {% endif %}
             Supprimer
         </button>
