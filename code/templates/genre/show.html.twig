@@ -19,7 +19,10 @@
               {% endif %}
          {% endfor %}
 {% endfor %}
-
+{% set nombreDePages = 0 %}
+{% for livre in genre.livres %}
+    {% set nombreDePages = nombreDePages + livre.nbpages %}
+{% endfor %}
     <table class="table table-dark table-striped">
         <tbody>
             <tr>
@@ -30,6 +33,14 @@
                 <th>Nom</th>
                 <td>{{ genre.nom }}</td>
             </tr>
+            {% if nombreDePages > 0 %}
+            <tr>
+                <th>Nombre de pages</th>
+                <td>
+                    {{ nombreDePages }}
+                </td>
+            </tr>
+            {% endif %}
 
             {% if auteurs is not empty %}
                 <tr>
