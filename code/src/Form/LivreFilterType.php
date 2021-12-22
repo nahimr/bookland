@@ -16,6 +16,7 @@ class LivreFilterType extends AbstractType
         $builder
             ->add('titre', TextType::class, [
                 'label' => 'Titre',
+		'required' => false,
             ])
             ->add('fromScore', NumberType::class, [
                 "attr" => [
