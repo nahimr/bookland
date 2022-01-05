@@ -1,0 +1,8 @@
+language: php
+
+services:
+  - docker
+
+before_script:
+  - docker compose up -d
+
