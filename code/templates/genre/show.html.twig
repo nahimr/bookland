@@ -23,6 +23,10 @@
 {% for livre in genre.livres %}
     {% set nombreDePages = nombreDePages + livre.nbpages %}
 {% endfor %}
+{% set nombreDePagesMoyens = 0 %}
+{% if nombreDePagesMoyens > 0 %}
+    {% set nombreDePagesMoyens = (nombreDePages / (genre.livres | length)) | round %}
+{% endif %}
     <table class="table table-dark table-striped">
         <tbody>
             <tr>
@@ -40,6 +44,14 @@
                     {{ nombreDePages }}
                 </td>
             </tr>
+            {% endif %}
+            {% if nombreDePagesMoyens > 0 %}
+                <tr>
+                    <th>Nombre de pages moyens</th>
+                    <td>
+                        {{ nombreDePagesMoyens }}
+                    </td>
+                </tr>
             {% endif %}
 
             {% if auteurs is not empty %}
